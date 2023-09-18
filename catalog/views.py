@@ -8,7 +8,7 @@ def home(request: HttpRequest):
     return render(request, 'catalog/base.html')
 
 def contact(request: HttpRequest):
-    return render(request, 'catalog/contact.html')
+    return render(request, 'catalog/contacts.html')
 
 def index(request: HttpRequest):
     cat_list = Product.objects.all()
@@ -24,12 +24,12 @@ def contacts(request: HttpRequest):
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         print(name, phone, message)
-    return render(request, 'catalog/contact.html')
+    return render(request, 'catalog/contacts.html')
 
 def product(request: HttpRequest, product_id: int):
     """представление страницы main/product.html для каждого продукта"""
     prod_get = get_object_or_404(Product, pk=product_id)
-    return render(request, 'catalog/product.html', {'product': prod_get})
+    return render(request, '/catalog/product.html', {'product': prod_get})
 
 def great_prod(request: HttpRequest):
     """Представление страницы main/great_prod.html с формой загрузки нового продукта"""

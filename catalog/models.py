@@ -1,6 +1,8 @@
 from django.db import models
 import datetime
 
+from django.utils import timezone
+
 # Объявление словаря NULLABLE
 NULLABLE = {'null': True, 'blank': True}
 
@@ -12,7 +14,7 @@ class MainCategory(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, verbose_name='категория')
+    name = models.CharField(max_length=50, verbose_name='категория', default=timezone.now)
     description = models.TextField(verbose_name='описание', **NULLABLE)
 
     def __str__(self):
@@ -23,12 +25,12 @@ class Category(models.Model):
         verbose_name_plural = 'категории'
 
 class Product(models.Model):
-    name = models.CharField(max_length=100, verbose_name='наименование')
+    name = models.CharField(max_length=100, verbose_name='наименование', default=timezone.now)
     description = models.TextField(verbose_name='описание', **NULLABLE)
     # image = models.ImageField(verbose_name='изображение (превью)', **NULLABLE)
     image = models.ImageField(verbose_name='изображение (превью)', upload_to='images/', **NULLABLE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    unit_price = models.IntegerField(verbose_name='цена за покупку')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
+    unit_price = models.IntegerField(verbose_name='цена за покупку', default=0.00)
     produce_day = models.DateField(verbose_name='дата создания', default=datetime.date(2022, 1, 1))
     last_change = models.DateField(verbose_name='дата последнего изменения', auto_now=True)
 
@@ -55,7 +57,7 @@ class Contacts(models.Model):
         verbose_name_plural = 'контакты'
 
 class YourModel(models.Model):
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
 class MyModel(models.Model):
     image = models.ImageField(upload_to='images/')
