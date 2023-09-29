@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% block content%}
+{% load media %}
+    <div class="row text-center">
+        <div>
+            <h1>Магазин"</h1>
+            <h2>Качественные продукты</h2>
+        </div>
+    {% for object in object_list %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ object.name }}</h3>
+                        <h4 class="card-title pricing-card-title">{{ object.unit_price }} руб.</h4>
+                        <img src="{{ object.image|media_url }}" alt="Card image">
+                        <p class="card-text">
+                            <p class="card-text">{{ object.category.name }}</p>
+                            <p class="card-text">{{ object.description|truncatechars:100 }}</p> <!-- ограничиваем описание до 100 символов -->
+                        </p>
+                        <a href="{% url 'product' object.id %}" class="btn btn-primary">Купить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+            </div>
+            <div class="row text-center">
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}
