@@ -26,10 +26,10 @@ def contacts(request: HttpRequest):
         print(name, phone, message)
     return render(request, 'catalog/contacts.html')
 
-def product(request: HttpRequest, product_id: int):
+def product(request: HttpRequest): #, product_id: int
     """представление страницы main/product.html для каждого продукта"""
-    prod_get = get_object_or_404(Product, pk=product_id)
-    return render(request, 'catalog/product.html', {'product': prod_get})
+    #prod_get = get_object_or_404(Product, pk=product_id)
+    return render(request, 'catalog/product.html') #, {'product': prod_get}
 
 def great_prod(request: HttpRequest):
     """Представление страницы main/great_prod.html с формой загрузки нового продукта"""
